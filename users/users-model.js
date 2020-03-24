@@ -23,6 +23,6 @@ function findById(id) {
 module.exports = {
   add,
   find,
-  findby,
+  findBy,
   findById,
 };

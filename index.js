@@ -1,8 +1,8 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
-// const authRouter = require('./auth/auth-router.js');
-// const usersRouter = require('./users/users-router.js');
+const authRouter = require('./auth/auth-router.js');
+const usersRouter = require('./users/users-router.js');
 
 const server = express();
 const port = process.env.PORT || 5000;
@@ -11,8 +11,8 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-// server.use('/auth', authRouter);
-// server.use('/users', usersRouter);
+server.use('/auth', authRouter);
+server.use('/users', usersRouter);
 
 // sanity check
 server.get('/', (req, res, next) => {
@@ -21,7 +21,7 @@ server.get('/', (req, res, next) => {
 
 // server.use((err, req, res, next) => {
 //   console.log('Error:', err);
-//   res.status(500).json({message: "Something went wrong"})
+//   res.status(500).json({ message: 'Something went wrong' });
 // });
 
 server.listen(port, () => {
