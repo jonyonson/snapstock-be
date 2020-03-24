@@ -22,10 +22,10 @@ server.get('/', (req, res, next) => {
   res.json({ message: 'Hello, world!' });
 });
 
-// server.use((err, req, res, next) => {
-//   console.log('Error:', err);
-//   res.status(500).json({ message: 'Something went wrong' });
-// });
+server.use((err, req, res, next) => {
+  console.log('Error:', err);
+  res.status(500).json({ message: 'Something went wrong' });
+});
 
 server.listen(port, () => {
   console.log(`\n** Running on http://localhost:${port} **\n`);
