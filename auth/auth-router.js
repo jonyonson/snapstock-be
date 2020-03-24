@@ -10,18 +10,15 @@ const router = express.Router();
 router.post('/register', async (req, res, next) => {
   try {
     const saved = await usersModel.add(req.body);
-    res.status(201).json(saved);
+    const token = generateToken(saved);
+    const { id, email } = saved;
+    res.status(201).json({ id, email, token });
   } catch (err) {
     next(err);
   }
 });
 
 router.post('/login', async (req, res, next) => {
-  // const { email, password } = req.body;
-
-  // usersModel.findBy({email}).first().then(user => {
-  //   if (user && bcrypt.com)
-  // })
   try {
     const { email, password } = req.body;
     const user = await usersModel.findBy({ email }).first();
