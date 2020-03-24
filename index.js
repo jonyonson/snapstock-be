@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const authRouter = require('./auth/auth-router.js');
 const usersRouter = require('./users/users-router.js');
+const securitiesRouter = require('./api/securities/securities-router.js');
 
 const server = express();
 const port = process.env.PORT || 5000;
@@ -13,6 +15,7 @@ server.use(express.json());
 
 server.use('/auth', authRouter);
 server.use('/users', usersRouter);
+server.use('/api/securities', securitiesRouter);
 
 // sanity check
 server.get('/', (req, res, next) => {
