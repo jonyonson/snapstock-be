@@ -16,24 +16,10 @@ router.get('/:symbol', async (req, res, next) => {
     // const batchURL = `https://cloud.iexapis.com/stable/stock/${symbol}/batch?types=quote,news,chart,logo&range=1m&last=10&token=${IEX_CLOUD_API_TOKEN} `;
     const batchURL = `https://cloud.iexapis.com/stable/stock/${symbol}/batch?types=quote,intraday-prices,logo&token=${IEX_CLOUD_API_TOKEN} `;
 
-    // const imageRes = await fetch(imageURL);
-    // let imageData = await imageRes.json();
-
     const response = await fetch(batchURL);
     let data = await response.json();
 
-    // data.logo_url = imageData.url;
-
-    // const response = await fetch(quoteUrl);
-    // let data = await response.json();
-    // data = data['Global Quote'];
-
-    // let quote = {};
-    // for (let [key, value] of Object.entries(data)) {
-    //   let newKey = key.split(' ').slice(1).join('_');
-    //   quote[newKey] = value;
-    // }
-
+    // save some basic info on this stock to the db if it isn't already
     const stock = await stocksModel.findBy({ symbol }).first();
 
     if (!stock) {
@@ -44,21 +30,6 @@ router.get('/:symbol', async (req, res, next) => {
         image_url: data.logo.url,
       });
     }
-
-    // if (stock) {
-    //   quote.logo_url = stock.image_url;
-    // } else {
-    //   const response = await fetch(imageUrl);
-    //   const data = await response.json();
-    //   quote.logo_url = data.url;
-
-    //   await stocksModel.addStock({
-    //     symbol: symbol,
-    //     image_url: data.url,
-    //   });
-    // }
-
-    // res.status(200).json(quote);
 
     res.status(200).json(data);
   } catch (err) {
