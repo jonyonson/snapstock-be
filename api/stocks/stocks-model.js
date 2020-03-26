@@ -1,6 +1,6 @@
 const db = require('../../data/db-config');
 
-function add(stock) {
+function addStock(stock) {
   return db('stocks').insert(stock);
 }
 
@@ -9,6 +9,6 @@ function findBy(filter) {
 }
 
 module.exports = {
-  add,
+  addStock,
   findBy,
 };
