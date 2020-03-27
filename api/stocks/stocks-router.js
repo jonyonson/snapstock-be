@@ -1,22 +1,20 @@
 const express = require('express');
 const fetch = require('node-fetch');
-// const restricted = require('../middleware/restricted');
 const stocksModel = require('./stocks-model');
 const router = express.Router();
 
-// const ALPHA_VANTAGE_API_KEY = process.env.ALPHA_VANTAGE_API_KEY;
-const IEX_CLOUD_API_TOKEN = process.env.IEX_CLOUD_API_TOKEN;
+const IEX_API_KEY = process.env.IEX_SANDBOX_API_KEY;
+// const IEX_API_KEY = process.env.IEX_CLOUD_API_KEY;
+
+const BASE_URL = `https://sandbox.iexapis.com/stable/stock`;
+// const BASE_URL = `https://cloud.iexapis.com/stable/stock`;
 
 router.get('/:symbol', async (req, res, next) => {
   try {
     const symbol = req.params.symbol.toUpperCase();
+    const url = `${BASE_URL}/${symbol}/batch?types=quote,intraday-prices,logo&token=${IEX_API_KEY}`;
 
-    // const quoteUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
-    // const imageURL = `https://cloud.iexapis.com/stable/stock/${symbol}/logo?token=pk_00ecb118fca947a2ac355634d457e406`;
-    // const batchURL = `https://cloud.iexapis.com/stable/stock/${symbol}/batch?types=quote,news,chart,logo&range=1m&last=10&token=${IEX_CLOUD_API_TOKEN} `;
-    const batchURL = `https://cloud.iexapis.com/stable/stock/${symbol}/batch?types=quote,intraday-prices,logo&token=${IEX_CLOUD_API_TOKEN} `;
-
-    const response = await fetch(batchURL);
+    const response = await fetch(url);
     let data = await response.json();
 
     // save some basic info on this stock to the db if it isn't already
@@ -34,6 +32,21 @@ router.get('/:symbol', async (req, res, next) => {
     res.status(200).json(data);
   } catch (err) {
     res.status(400).json({ error: 'Error getting quote' });
+  }
+});
+
+router.get('/:symbol/chart/:range', async (req, res, next) => {
+  try {
+    const symbol = req.params.symbol.toUpperCase();
+    const range = req.params.range;
+    const url = `${BASE_URL}/${symbol}/chart/${range}?token=${IEX_API_KEY}`;
+
+    const response = await fetch(url);
+    let data = await response.json();
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: 'Error getting data' });
   }
 });
 
