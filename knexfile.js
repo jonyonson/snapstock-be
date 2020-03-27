@@ -13,43 +13,43 @@ module.exports = {
     },
   },
 
-  // testing: {
-  //   client: 'pg',
-  //   connection: {
-  //     database: 'my_db',
-  //     user: 'username',
-  //     password: 'password',
-  //   },
-  //   pool: {
-  //     min: 2,
-  //     max: 10,
-  //   },
-  //   migrations: {
-  //     directory: './data/migrations',
-  //     // tableName: 'knex_migrations',
-  //   },
-  //   seeds: {
-  //     directory: './data/seeds',
-  //   },
-  // },
+  testing: {
+    client: 'pg',
+    connection: {
+      database: 'my_db',
+      user: 'username',
+      password: 'password',
+    },
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      directory: './data/migrations',
+      // tableName: 'knex_migrations',
+    },
+    seeds: {
+      directory: './data/seeds',
+    },
+  },
 
-  // production: {
-  //   client: 'pg',
-  //   connection: {
-  //     database: 'my_db',
-  //     user: 'username',
-  //     password: 'password',
-  //   },
-  //   pool: {
-  //     min: 2,
-  //     max: 10,
-  //   },
-  //   migrations: {
-  //     directory: './data/migrations',
-  //     // tableName: 'knex_migrations',
-  //   },
-  //   seeds: {
-  //     directory: './data/seeds',
-  //   },
-  // },
+  production: {
+    client: 'pg',
+    connection: {
+      database: 'my_db',
+      user: 'username',
+      password: 'password',
+    },
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      directory: './data/migrations',
+      // tableName: 'knex_migrations',
+    },
+    seeds: {
+      directory: './data/seeds',
+    },
+  },
 };
