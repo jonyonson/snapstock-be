@@ -19,7 +19,11 @@ server.use('/api/stocks', stocksRouter);
 
 // sanity check
 server.get('/', (req, res, next) => {
-  res.json({ message: 'Hello, world!' });
+  res.json({
+    message: 'Hello, world!',
+    env: process.env.NODE_ENV,
+    database_url: process.env.DATABASE_URL,
+  });
 });
 
 server.use((err, req, res, next) => {
