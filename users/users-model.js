@@ -12,7 +12,7 @@ function findBy(filter) {
 }
 
 async function add(user) {
-  user.password = await bcrypt.hash(user.password, 12);
+  user.password = bcrypt.hashSync(user.password, 12);
   const [id] = await db('users').insert(user);
 
   return findById(id);
