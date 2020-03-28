@@ -17,6 +17,8 @@ router.post('/register', async (req, res, next) => {
   //   // res.status(400).json({ message: 'Error registering user' });
   //   // next(err);
   // }
+  const user = req.body;
+  user.password = bcrypt.hashSync(user.password, 12);
 
   usersModel
     .add(req.body)
