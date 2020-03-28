@@ -5,7 +5,9 @@ function addStock(stock) {
 }
 
 function findBy(filter) {
-  return db('stocks').where(filter).select('id', 'symbol', 'image_url');
+  return db('stocks')
+    .where(filter)
+    .select('id', 'symbol', 'company_name', 'primary_exchange', 'image_url');
 }
 
 module.exports = {
