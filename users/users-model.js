@@ -13,9 +13,11 @@ function findBy(filter) {
 
 async function add(user) {
   // user.password = bcrypt.hashSync(user.password, 12);
-  const [id] = await db('users').insert(user);
+  // const [id] = await db('users').insert(user);
 
-  return findById(id);
+  // return findById(id);
+
+  return db('users').insert(user).returning('id');
 }
 
 function findById(id) {
