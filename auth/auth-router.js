@@ -11,8 +11,7 @@ router.post('/register', async (req, res, next) => {
   try {
     const saved = await usersModel.add(req.body);
     const token = generateToken(saved);
-    const { id, email } = saved;
-    res.status(201).json({ id, email, token });
+    res.status(201).json({ ...saved, token });
   } catch (err) {
     next(err);
   }
