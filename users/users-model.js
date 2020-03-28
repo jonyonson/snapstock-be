@@ -19,9 +19,8 @@ async function add(user) {
 }
 
 function findById(id) {
-  return db('users')
-    .where({ id })
-    .first('id', 'email', 'email_verified', 'created_at');
+  return db('users').where({ id }).first();
+  // .first('id', 'email', 'email_verified', 'created_at');
 }
 
 module.exports = {
