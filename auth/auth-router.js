@@ -13,7 +13,8 @@ router.post('/register', async (req, res, next) => {
     const token = generateToken(saved);
     res.status(201).json({ ...saved, token });
   } catch (err) {
-    next(err);
+    res.status(400).json({ message: 'Error registering user' });
+    // next(err);
   }
 });
 
