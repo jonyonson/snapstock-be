@@ -17,7 +17,9 @@ async function add(user) {
 
   // return findById(id);
 
-  return db('users').insert(user).returning('id');
+  return db('users')
+    .returning(['id', 'email', 'email_verified', 'created_at'])
+    .insert(user);
 }
 
 function findById(id) {
