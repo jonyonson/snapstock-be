@@ -8,27 +8,29 @@ const secrets = require('../config/secrets');
 const router = express.Router();
 
 router.post('/register', async (req, res, next) => {
-  try {
-    const saved = await usersModel.add(req.body);
-    // const token = generateToken(saved);
+  // try {
+  //   const saved = await usersModel.add(req.body);
+  //   // const token = generateToken(saved);
 
-    res.status(201).json(saved);
-  } catch (err) {
-    res.status(500).json(err);
-    // res.status(400).json({ message: 'Error registering user' });
-    // next(err);
-  }
+  //   res.status(201).json(saved);
+  // } catch (err) {
+  //   res.status(500).json(err);
+  //   // res.status(400).json({ message: 'Error registering user' });
+  //   // next(err);
+  // }
 
-  // usersModel
-  //   .add(req.body)
-  //   .then((id) => {
-  //     console.log(id);
-  //     const token = generateToken(saved);
-  //     res.status(200).json({ ...id, token });
-  //   })
-  //   .catch((error) => {
-  //     res.status(500).json(error);
-  //   });
+  usersModel
+    .add(req.body)
+    .then((user) => {
+      console.log(user);
+
+      const token = generateToken(user);
+      // res.status(200).json({ ...id, token });
+      res.status(201).json({ ...user, token });
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
 });
 
 router.post('/login', async (req, res, next) => {
