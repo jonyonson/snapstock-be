@@ -10,9 +10,9 @@ const router = express.Router();
 router.post('/register', async (req, res, next) => {
   try {
     const saved = await usersModel.add(req.body);
-    const token = generateToken(saved);
+    // const token = generateToken(saved);
 
-    res.status(201).json({ ...saved, token });
+    res.status(201).json(saved);
   } catch (err) {
     res.status(400).json({ message: 'Error registering user' });
     // next(err);
