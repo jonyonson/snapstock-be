@@ -6,26 +6,20 @@ function find() {
 }
 
 function findBy(filter) {
-  return db('users')
-    .where(filter)
-    .select('id', 'email', 'email_verified', 'created_at');
+  return db('users').where(filter).select('id', 'email', 'password');
 }
 
 async function add(user) {
-  // user.password = bcrypt.hashSync(user.password, 12);
   // const [id] = await db('users').insert(user);
-
   // return findById(id);
 
   return db('users')
-    .returning(['id', 'email', 'email_verified', 'created_at'])
-    .insert(user);
+    .insert(user, 'id')
+    .returning(['id', 'email', 'email_verified', 'created_at']);
 }
 
 function findById(id) {
-  return db('users')
-    .where({ id })
-    .first('id', 'email', 'email_verified', 'created_at');
+  return db('users').where({ id }).first('id', 'email');
 }
 
 module.exports = {
