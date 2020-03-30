@@ -1,32 +1,24 @@
 exports.up = async (knex) => {
-  await knex.schema.createTable('users', (users) => {
-    users.increments();
-    users.string('email', 128).notNullable().unique();
-    users.string('password', 128).notNullable();
-    users.boolean('email_verified').defaultTo(false);
-    users.timestamp('created_at').defaultTo(knex.fn.now());
+  await knex.schema.createTable('users', (table) => {
+    table.increments();
+    table.string('email', 128).notNullable().unique();
+    table.string('password', 128).notNullable();
+    table.boolean('email_verified').defaultTo(false);
+    table.timestamp('created_at').defaultTo(knex.fn.now());
   });
 
-  await knex.schema.createTable('stocks', (stocks) => {
-    stocks.increments('id');
-    stocks.string('symbol').notNullable().unique();
-    stocks.string('company_name').notNullable();
-    stocks.string('primary_exchange');
-    stocks.string('image_url');
+  await knex.schema.createTable('stocks', (table) => {
+    table.increments();
+    table.string('symbol').notNullable().unique();
+    table.string('company_name').notNullable();
+    table.string('primary_exchange');
+    table.string('image_url');
+    table.string('company_description');
+    table.string('company_website');
   });
-
-  // await knex.schema.createTable('watchlist', (watchlist) => {
-  //   watchlist.increments('id');
-  // });
-
-  // await knex.schema.createTable('portfolio', (portfolio) => {
-  //   portfolio.increments('id')
-  // });
 };
 
 exports.down = async (knex) => {
-  // await knex.schema.dropTableIfExists('watchlist');
-  // await knex.schema.dropTableIfExists('portfolio');
   await knex.schema.dropTableIfExists('stocks');
   await knex.schema.dropTableIfExists('users');
 };
