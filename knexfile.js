@@ -1,24 +1,13 @@
 module.exports = {
   development: {
-    client: 'sqlite3',
-    useNullAsDefault: true,
+    client: 'pg',
     connection: {
-      filename: './data/dev.sqlite3',
+      database: process.env.DATABASE,
     },
-    migrations: {
-      directory: './data/migrations',
+    pool: {
+      min: 2,
+      max: 10,
     },
-    seeds: {
-      directory: './data/seeds',
-    },
-  },
-
-  testing: {
-    client: 'sqlite3',
-    connection: {
-      filename: './data/test.db3',
-    },
-    useNullAsDefault: true,
     migrations: {
       directory: './data/migrations',
     },
@@ -36,10 +25,28 @@ module.exports = {
     },
     migrations: {
       directory: './data/migrations',
-      // tableName: 'knex_migrations',
     },
     seeds: {
       directory: './data/seeds',
     },
   },
+
+  // development: {
+  //   client: 'sqlite3',
+  //   useNullAsDefault: true,
+  //   connection: {
+  //     filename: './data/dev.sqlite3',
+  //   },
+  //   migrations: {
+  //     directory: './data/migrations',
+  //   },
+  //   seeds: {
+  //     directory: './data/seeds',
+  //   },
+  //   pool: {
+  //     afterCreate: (conn, done) => {
+  //       conn.run('PRAGMA foreign_keys = ON', done);
+  //     },
+  //   },
+  // },
 };
