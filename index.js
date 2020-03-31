@@ -2,9 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
-const authRouter = require('./auth/auth-router.js');
-const usersRouter = require('./users/users-router.js');
-const stocksRouter = require('./api/stocks/stocks-router.js');
+const authRouter = require('./auth/auth-router');
+const usersRouter = require('./users/users-router');
+const stocksRouter = require('./api/stocks/stocks-router');
+const avStocksRouter = require('./api/stocks/stocks-router-av');
 
 const server = express();
 const port = process.env.PORT || 5000;
@@ -16,6 +17,7 @@ server.use(express.json());
 server.use('/auth', authRouter);
 server.use('/users', usersRouter);
 server.use('/api/stocks', stocksRouter);
+server.use('/api/stocks/av', avStocksRouter);
 
 // sanity check
 server.get('/', (req, res, next) => {
