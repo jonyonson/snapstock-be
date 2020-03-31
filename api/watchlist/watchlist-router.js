@@ -8,10 +8,19 @@ router.post('/', async (req, res) => {
 
   try {
     const saved = await watchlistModel.add({ symbol, user_id, company_name });
-    console.log(saved);
     res.status(200).json(saved[0]);
   } catch (err) {
     res.status(500).json({ message: 'Error saving stock to watchlist.' });
+  }
+});
+
+router.get('/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const watchlist = await watchlistModel.findByUserId(userId);
+    res.status(200).json(watchlist);
+  } catch (err) {
+    res.status(500).json({ message: 'Error getting watchlist' });
   }
 });
 
