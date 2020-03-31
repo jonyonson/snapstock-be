@@ -6,20 +6,23 @@ function find() {
 }
 
 function findBy(filter) {
-  return db('users').where(filter).select('id', 'email', 'password');
+  return db('users')
+    .where(filter)
+    .select('id', 'email', 'password', 'email_verified', 'created_at');
 }
 
 async function add(user) {
   // const [id] = await db('users').insert(user);
   // return findById(id);
-
   return db('users')
     .insert(user, 'id')
     .returning(['id', 'email', 'email_verified', 'created_at']);
 }
 
 function findById(id) {
-  return db('users').where({ id }).first('id', 'email');
+  return db('users')
+    .where({ id })
+    .first('id', 'email', 'email_verified', 'created_at');
 }
 
 module.exports = {
