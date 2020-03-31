@@ -21,12 +21,14 @@ router.get('/:symbol', async (req, res, next) => {
     const stock = await stocksModel.findBy({ symbol }).first();
 
     if (!stock) {
-      stocksModel.addStock({
+      const newStock = {
         symbol: data.quote.symbol,
         company_name: data.quote.companyName,
         primary_exchange: data.quote.primaryExchange,
         image_url: data.logo.url,
-      });
+      };
+
+      await stocksModel.addStock(newStock);
     }
 
     res.status(200).json(data);
