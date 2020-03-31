@@ -5,13 +5,13 @@ const router = express.Router();
 
 const IEX_API_KEY = process.env.IEX_SANDBOX_API_KEY;
 // const IEX_API_KEY = process.env.IEX_CLOUD_API_KEY;
-
 const BASE_URL = `https://sandbox.iexapis.com/stable/stock`;
 // const BASE_URL = `https://cloud.iexapis.com/stable/stock`;
 
-router.get('/:symbol', async (req, res, next) => {
+router.get('/:symbol', async (req, res) => {
   try {
     const symbol = req.params.symbol.toUpperCase();
+    // const url = `${BASE_URL}/${symbol}/batch?types=quote,intraday-prices,logo&token=${IEX_API_KEY}`;
     const url = `${BASE_URL}/${symbol}/batch?types=quote,intraday-prices,logo&token=${IEX_API_KEY}`;
 
     const response = await fetch(url);
@@ -21,21 +21,25 @@ router.get('/:symbol', async (req, res, next) => {
     const stock = await stocksModel.findBy({ symbol }).first();
 
     if (!stock) {
-      stocksModel.addStock({
+      const newStock = {
         symbol: data.quote.symbol,
         company_name: data.quote.companyName,
         primary_exchange: data.quote.primaryExchange,
         image_url: data.logo.url,
-      });
+      };
+
+      await stocksModel.addStock(newStock);
     }
 
     res.status(200).json(data);
   } catch (err) {
-    res.status(400).json({ error: 'Error getting quote' });
+    res
+      .status(500)
+      .json({ error: 'Error getting quote data from Alpha Vantage' });
   }
 });
 
-router.get('/:symbol/chart/:range', async (req, res, next) => {
+router.get('/:symbol/chart/:range', async (req, res) => {
   try {
     const symbol = req.params.symbol.toUpperCase();
     const range = req.params.range;
@@ -46,7 +50,7 @@ router.get('/:symbol/chart/:range', async (req, res, next) => {
 
     res.status(200).json(data);
   } catch (err) {
-    res.status(500).json({ error: 'Error getting data' });
+    res.status(500).json({ error: 'Error getting chart data from IEX' });
   }
 });
 
