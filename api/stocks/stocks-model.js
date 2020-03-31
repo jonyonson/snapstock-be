@@ -1,7 +1,7 @@
 const db = require('../../data/db-config');
 
 function addStock(stock) {
-  return db('stocks').insert(stock);
+  return db('stocks').insert(stock, 'id').returning(['id', 'company_name']);
 }
 
 function findBy(filter) {

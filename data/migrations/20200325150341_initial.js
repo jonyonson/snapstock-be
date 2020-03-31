@@ -26,14 +26,16 @@ exports.up = async (knex) => {
       .inTable('users')
       .onDelete('CASCADE')
       .onUpdate('CASCADE');
-    table
-      .integer('watchlist_stock_id')
-      .notNullable()
-      .references('id')
-      .inTable('stocks')
-      .onDelete('CASCADE')
-      .onUpdate('CASCADE');
-    // table.primary(['user_id', 'watchlist_stock_id']);
+    // table
+    //   .integer('stock_id')
+    //   .notNullable()
+    //   .references('id')
+    //   .inTable('stocks')
+    //   .onDelete('CASCADE')
+    //   .onUpdate('CASCADE');
+    // table.primary(['user_id', 'stock_id']);
+    table.string('symbol').notNullable().unique();
+    table.string('company_name').notNullable();
   });
 };
 
