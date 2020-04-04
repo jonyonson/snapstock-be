@@ -10,11 +10,12 @@ router.get('/top-headlines', async (req, res) => {
 
   const whitelist = [
     'CNBC',
+    'Trust.org',
     'Marketwatch.com',
     'The Hill',
-    'The Washington Post',
+    'Reuters',
     'The New York Times',
-    'The Wall Street Journal',
+    'The Washington Post',
   ];
 
   try {
