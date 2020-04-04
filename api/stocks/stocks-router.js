@@ -3,10 +3,10 @@ const fetch = require('node-fetch');
 const stocksModel = require('./stocks-model');
 const router = express.Router();
 
-const IEX_API_KEY = process.env.IEX_SANDBOX_API_KEY;
-// const IEX_API_KEY = process.env.IEX_CLOUD_API_KEY;
-const BASE_URL = `https://sandbox.iexapis.com/stable/stock`;
-// const BASE_URL = `https://cloud.iexapis.com/stable/stock`;
+// const IEX_API_KEY = process.env.IEX_SANDBOX_API_KEY;
+const IEX_API_KEY = process.env.IEX_CLOUD_API_KEY;
+// const BASE_URL = `https://sandbox.iexapis.com/stable/stock`;
+const BASE_URL = `https://cloud.iexapis.com/stable/stock`;
 
 router.get('/:symbol', async (req, res) => {
   try {
