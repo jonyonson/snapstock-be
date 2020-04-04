@@ -14,8 +14,10 @@ router.get('/top-headlines', async (req, res) => {
     'Marketwatch.com',
     'The Hill',
     'Reuters',
-    'The New York Times',
+    'Nytimes.com',
     'The Washington Post',
+    'Bloomberg',
+    'Investopedia.com',
   ];
 
   try {
