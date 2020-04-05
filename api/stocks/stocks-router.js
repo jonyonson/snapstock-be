@@ -69,4 +69,23 @@ router.get('/market/list/:type', async (req, res) => {
   }
 });
 
+router.get('/market/indices', async (req, res) => {
+  let flaskBaseURL;
+  if (process.env.NODE_ENV === 'development') {
+    flaskBaseURL = 'http://localhost:4000';
+  } else {
+    flaskBaseURL = 'https://snapstock-flask.herokuapp.com';
+  }
+
+  try {
+    const url = flaskBaseURL + '/indices';
+    const response = await fetch(url);
+    let data = await response.json();
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ message: 'Error getting data' });
+  }
+});
+
 module.exports = router;
