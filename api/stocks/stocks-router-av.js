@@ -5,6 +5,20 @@ const router = express.Router();
 
 const ALPHA_VANTAGE_API_KEY = process.env.ALPHA_VANTAGE_API_KEY;
 
+router.get('/:symbol', async (req, res) => {
+  try {
+    const symbol = req.params.symbol;
+    const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${ALPHA_VANTAGE_API_KEY}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const quoteData = data['Global Quote'];
+
+    res.status(200).json(quoteData);
+  } catch (err) {
+    res.status(500).json({ message: 'Error getting data' });
+  }
+});
+
 router.get('/:symbol/chart/1d', async (req, res) => {
   try {
     const symbol = req.params.symbol;
