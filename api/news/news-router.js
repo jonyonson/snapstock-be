@@ -1,6 +1,5 @@
 const express = require('express');
 const fetch = require('node-fetch');
-// const isSameDay = require('date-fns/isSameDay');
 const router = express.Router();
 
 const NEWS_API_KEY = process.env.NEWS_API_KEY;
@@ -19,6 +18,7 @@ router.get('/top-headlines', async (req, res) => {
     'Investopedia.com',
     'TechCrunch',
     'Fool.com',
+    'CNN',
   ];
 
   try {
