@@ -8,6 +8,13 @@ const IEX_API_KEY = process.env.IEX_CLOUD_API_KEY;
 // const BASE_URL = `https://sandbox.iexapis.com/stable/stock`;
 const BASE_URL = `https://cloud.iexapis.com/stable/stock`;
 
+let FLASK_BASE_URL;
+if (process.env.NODE_ENV === 'development') {
+  FLASK_BASE_URL = 'http://localhost:4000';
+} else {
+  FLASK_BASE_URL = 'https://snapstock-flask.herokuapp.com';
+}
+
 router.get('/:symbol', async (req, res) => {
   try {
     const symbol = req.params.symbol.toUpperCase();
@@ -70,17 +77,66 @@ router.get('/market/list/:type', async (req, res) => {
 });
 
 router.get('/market/indices', async (req, res) => {
-  let flaskBaseURL;
-  if (process.env.NODE_ENV === 'development') {
-    flaskBaseURL = 'http://localhost:4000';
-  } else {
-    flaskBaseURL = 'https://snapstock-flask.herokuapp.com';
-  }
-
   try {
-    const url = flaskBaseURL + '/indices';
+    const url = FLASK_BASE_URL + '/indices';
     const response = await fetch(url);
     let data = await response.json();
+
+    for (let prop in data) {
+      data[prop].yearRange = data[prop]['52 Week Range'];
+      delete data[prop]['52 Week Range'];
+      data[prop].avgVolume = data[prop]['Avg. Volume'];
+      delete data[prop]['Avg. Volume'];
+      data[prop].change = data[prop]['Change'];
+      delete data[prop]['Change'];
+      data[prop].dayRange = data[prop]["Day's Range"];
+      delete data[prop]["Day's Range"];
+      data[prop].open = data[prop]['Open'];
+      delete data[prop]['Open'];
+      data[prop].percentChange = data[prop]['Percent Change'];
+      delete data[prop]['Percent Change'];
+      data[prop].previousClose = data[prop]['Previous Close'];
+      delete data[prop]['Previous Close'];
+      data[prop].price = data[prop]['Quote Price'];
+      delete data[prop]['Quote Price'];
+      data[prop].volume = data[prop]['Volume'];
+      delete data[prop]['Volume'];
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ message: 'Error getting data' });
+  }
+});
+
+router.get('/market/indices/:index', async (req, res) => {
+  const index = req.params.index;
+
+  try {
+    const url = FLASK_BASE_URL + '/indices/' + index;
+    const response = await fetch(url);
+    let data = await response.json();
+
+    for (let prop in data) {
+      data[prop].yearRange = data[prop]['52 Week Range'];
+      delete data[prop]['52 Week Range'];
+      data[prop].avgVolume = data[prop]['Avg. Volume'];
+      delete data[prop]['Avg. Volume'];
+      data[prop].change = data[prop]['Change'];
+      delete data[prop]['Change'];
+      data[prop].dayRange = data[prop]["Day's Range"];
+      delete data[prop]["Day's Range"];
+      data[prop].open = data[prop]['Open'];
+      delete data[prop]['Open'];
+      data[prop].percentChange = data[prop]['Percent Change'];
+      delete data[prop]['Percent Change'];
+      data[prop].previousClose = data[prop]['Previous Close'];
+      delete data[prop]['Previous Close'];
+      data[prop].price = data[prop]['Quote Price'];
+      delete data[prop]['Quote Price'];
+      data[prop].volume = data[prop]['Volume'];
+      delete data[prop]['Volume'];
+    }
 
     res.status(200).json(data);
   } catch (err) {
