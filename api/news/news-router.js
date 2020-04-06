@@ -16,7 +16,7 @@ router.get('/top-headlines', async (req, res) => {
     'Nytimes.com',
     'The Washington Post',
     'Investopedia.com',
-    'TechCrunch',
+    // 'TechCrunch',
     'Fool.com',
     'CNN',
   ];
