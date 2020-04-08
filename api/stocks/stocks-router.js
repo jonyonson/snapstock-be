@@ -19,7 +19,7 @@ router.get('/:symbol', async (req, res) => {
   try {
     const symbol = req.params.symbol.toUpperCase();
     // const url = `${BASE_URL}/${symbol}/batch?types=quote,intraday-prices,logo&token=${IEX_API_KEY}`;
-    const url = `${BASE_URL}/${symbol}/batch?types=quote,company,logo&token=${IEX_API_KEY}`;
+    const url = `${BASE_URL}/${symbol}/batch?types=quote,company,stats,logo&token=${IEX_API_KEY}`;
 
     const response = await fetch(url);
     let data = await response.json();
