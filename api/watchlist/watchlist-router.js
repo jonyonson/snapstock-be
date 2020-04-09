@@ -1,7 +1,10 @@
 const express = require('express');
+const fetch = require('node-fetch');
 const watchlistModel = require('./watchlist-model');
-// const stocksModel = require('../stocks/stocks-model');
 const router = express.Router();
+
+const IEX_API_KEY = process.env.IEX_CLOUD_API_KEY;
+const BASE_URL = `https://cloud.iexapis.com/stable/stock`;
 
 router.post('/', async (req, res) => {
   const { symbol, user_id, company_name } = req.body;
@@ -18,47 +21,27 @@ router.get('/:userId', async (req, res) => {
   const userId = req.params.userId;
   try {
     const watchlist = await watchlistModel.findByUserId(userId);
+
+    // Get a quote for each security in our watchlist
+    const symbols = watchlist.map((stock) => stock.symbol).join(',');
+    const url = `${BASE_URL}/market/batch?symbols=${symbols}&types=quote&token=${IEX_API_KEY}`;
+    const response = await fetch(url);
+    let data = await response.json();
+
+    // add the quote for each stock
+    watchlist.forEach((stock) => {
+      // stock['quote'] = data[stock.symbol.toUpperCase()].quote;
+      stock['latestPrice'] = data[stock.symbol.toUpperCase()].quote.latestPrice;
+      stock['change'] = data[stock.symbol.toUpperCase()].quote.change;
+      stock['volume'] = data[stock.symbol.toUpperCase()].quote.volume;
+      stock['changePercent'] =
+        data[stock.symbol.toUpperCase()].quote.changePercent;
+    });
+
     res.status(200).json(watchlist);
   } catch (err) {
     res.status(500).json({ message: 'Error getting watchlist' });
   }
 });
-
-// router.post('/', async (req, res) => {
-//   // const stock = req.body;
-//   // console.log(stock);
-
-//   const { symbol, user_id, company_name } = req.body;
-
-//   const stock = await stocksModel.findBy({ symbol }).first();
-//   console.log(stock);
-//   let watchedStock = {};
-
-//   if (!stock) {
-//     const newStock = {
-//       symbol: req.body.symbol,
-//       company_name: req.body.company_name,
-//       // primary_exchange: data.quote.primaryExchange,
-//       // image_url: data.logo.url,
-//     };
-
-//     const saved = await stocksModel.addStock(newStock);
-//     watchedStock['stock_id'] = stockId = saved[0].id;
-//   } else {
-//     watchedStock['stock_id'] = stock.id;
-//   }
-
-//   watchedStock['user_id'] = req.body.user_id;
-//   console.log(watchedStock);
-
-//   try {
-//     const newWatched = await watchlistModel.add(watchedStock);
-//     console.log('new watched stock', newWatched);
-
-//     res.status(200).json(watchedStock);
-//   } catch (err) {
-//     res.status(200).json({ message: 'Error saving stock to watchlist' });
-//   }
-// });
 
 module.exports = router;
