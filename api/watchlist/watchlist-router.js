@@ -34,9 +34,13 @@ router.get('/:userId', async (req, res) => {
       stock['latestPrice'] = data[stock.symbol.toUpperCase()].quote.latestPrice;
       stock['change'] = data[stock.symbol.toUpperCase()].quote.change;
       stock['volume'] = data[stock.symbol.toUpperCase()].quote.volume;
+      stock['latestVolume'] =
+        data[stock.symbol.toUpperCase()].quote.latestVolume;
       stock['changePercent'] =
         data[stock.symbol.toUpperCase()].quote.changePercent;
     });
+
+    console.log(data);
 
     res.status(200).json(watchlist);
   } catch (err) {
