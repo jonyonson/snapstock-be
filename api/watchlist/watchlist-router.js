@@ -1,14 +1,15 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const watchlistModel = require('./watchlist-model');
+const restricted = require('../../middleware/restricted');
 const router = express.Router();
 
 const IEX_API_KEY = process.env.IEX_CLOUD_API_KEY;
 const BASE_URL = `https://cloud.iexapis.com/stable/stock`;
 
-router.post('/', async (req, res) => {
-  const { symbol, user_id, company_name } = req.body;
-
+router.post('/', restricted(), async (req, res) => {
+  const { symbol, company_name } = req.body;
+  const user_id = req.userId;
   try {
     const saved = await watchlistModel.add({ symbol, user_id, company_name });
     res.status(200).json(saved[0]);
@@ -17,8 +18,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/:userId', async (req, res) => {
-  const userId = req.params.userId;
+router.get('/', restricted(), async (req, res) => {
+  const userId = req.userId;
   try {
     const watchlist = await watchlistModel.findByUserId(userId);
 
@@ -40,11 +41,20 @@ router.get('/:userId', async (req, res) => {
         data[stock.symbol.toUpperCase()].quote.changePercent;
     });
 
-    console.log(data);
-
     res.status(200).json(watchlist);
   } catch (err) {
     res.status(500).json({ message: 'Error getting watchlist' });
+  }
+});
+
+router.delete('/:id', restricted(), async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user_id = req.userId;
+    const removed = await watchlistModel.removeStock(user_id, id);
+    res.status(200).json({ message: 'Stock removed from watchlist' });
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 

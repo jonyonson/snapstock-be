@@ -12,7 +12,12 @@ function findByUserId(user_id) {
     .select('id', 'symbol', 'company_name');
 }
 
+function removeStock(user_id, id) {
+  return db('watchlist').where({ id, user_id }).del();
+}
+
 module.exports = {
   add,
   findByUserId,
+  removeStock,
 };
