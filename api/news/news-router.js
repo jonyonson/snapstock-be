@@ -48,7 +48,8 @@ router.get('/top-headlines', async (req, res) => {
     }
 
     // get the articles back in order
-    articles.sort((a, b) => a.publishedAt - b.publishedAt);
+    articles.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+    console.log(articles);
 
     res.status(200).json(articles);
   } catch (err) {
