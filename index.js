@@ -5,7 +5,6 @@ const cors = require('cors');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const stocksRouter = require('./api/stocks/stocks-router');
-const avStocksRouter = require('./api/stocks/stocks-router-av');
 const watchlistRouter = require('./api/watchlist/watchlist-router');
 const newsRouter = require('./api/news/news-router');
 
@@ -19,7 +18,6 @@ server.use(express.json());
 server.use('/auth', authRouter);
 server.use('/users', usersRouter);
 server.use('/api/stocks', stocksRouter);
-server.use('/api/stocks/av', avStocksRouter);
 server.use('/api/watchlist', watchlistRouter);
 server.use('/api/news', newsRouter);
 
