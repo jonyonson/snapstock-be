@@ -2,26 +2,14 @@ const express = require('express');
 const fetch = require('node-fetch');
 const stocksModel = require('./stocks-model');
 const router = express.Router();
-
-// const IEX_API_KEY = process.env.IEX_SANDBOX_API_KEY;
-const IEX_API_KEY = process.env.IEX_CLOUD_API_KEY;
-// const BASE_URL = `https://sandbox.iexapis.com/stable/stock`;
-const BASE_URL = `https://cloud.iexapis.com/stable/stock`;
-
-let FLASK_BASE_URL;
-if (process.env.NODE_ENV === 'development') {
-  FLASK_BASE_URL = 'http://localhost:4000';
-} else {
-  FLASK_BASE_URL = 'https://snapstock-flask.herokuapp.com';
-}
+const { IEX_API_KEY, BASE_URL, FLASK_BASE_URL } = require('../../constants');
 
 router.get('/:symbol', async (req, res) => {
   try {
     const symbol = req.params.symbol.toUpperCase();
-    // const url = `${BASE_URL}/${symbol}/batch?types=quote,intraday-prices,logo&token=${IEX_API_KEY}`;
-    const url = `${BASE_URL}/${symbol}/batch?types=quote,company,stats,logo&token=${IEX_API_KEY}`;
+    const endpoint = `${BASE_URL}/${symbol}/batch?types=quote,company,intraday-prices,stats&token=${IEX_API_KEY}`;
 
-    const response = await fetch(url);
+    const response = await fetch(endpoint);
     let data = await response.json();
 
     // save some basic info on this stock to the db if it isn't already
@@ -40,9 +28,7 @@ router.get('/:symbol', async (req, res) => {
 
     res.status(200).json(data);
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: 'Error getting quote data from Alpha Vantage' });
+    res.status(500).json({ error: 'Error getting data' });
   }
 });
 

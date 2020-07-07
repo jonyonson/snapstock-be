@@ -3,9 +3,7 @@ const fetch = require('node-fetch');
 const watchlistModel = require('./watchlist-model');
 const restricted = require('../../middleware/restricted');
 const router = express.Router();
-
-const IEX_API_KEY = process.env.IEX_CLOUD_API_KEY;
-const BASE_URL = `https://cloud.iexapis.com/stable/stock`;
+const { IEX_API_KEY, BASE_URL } = require('../../constants');
 
 router.post('/', restricted(), async (req, res) => {
   const { symbol, company_name } = req.body;
