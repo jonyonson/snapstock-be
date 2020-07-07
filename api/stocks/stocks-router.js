@@ -8,24 +8,8 @@ router.get('/:symbol', async (req, res) => {
   try {
     const symbol = req.params.symbol.toUpperCase();
     const endpoint = `${BASE_URL}/${symbol}/batch?types=quote,company,intraday-prices,stats&token=${IEX_API_KEY}`;
-
     const response = await fetch(endpoint);
-    let data = await response.json();
-
-    // save some basic info on this stock to the db if it isn't already
-    const stock = await stocksModel.findBy({ symbol }).first();
-
-    if (!stock) {
-      const newStock = {
-        symbol: data.quote.symbol,
-        company_name: data.quote.companyName,
-        primary_exchange: data.quote.primaryExchange,
-        image_url: data.logo.url,
-      };
-
-      await stocksModel.addStock(newStock);
-    }
-
+    const data = await response.json();
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ error: 'Error getting data' });
@@ -37,25 +21,24 @@ router.get('/:symbol/chart/:range', async (req, res) => {
     const symbol = req.params.symbol.toUpperCase();
     const range = req.params.range;
     const url = `${BASE_URL}/${symbol}/chart/${range}?token=${IEX_API_KEY}`;
-
     const response = await fetch(url);
-    let data = await response.json();
-
+    const data = await response.json();
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ error: 'Error getting chart data from IEX' });
   }
 });
 
+/**
+ * 'mostactive' | 'gainers' | 'losers' |'iexvolume' | 'iexpercent'
+ * */
 router.get('/market/list/:type', async (req, res) => {
   const listType = req.params.type;
-  // 'mostactive', 'gainers', 'losers', 'iexvolume', 'iexpercent'
   const url = `${BASE_URL}/market/list/${listType}?token=${IEX_API_KEY}`;
 
   try {
     const response = await fetch(url);
-    let data = await response.json();
-
+    const data = await response.json();
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ message: 'Error getting data' });
@@ -67,6 +50,7 @@ router.get('/market/indices', async (req, res) => {
     const url = FLASK_BASE_URL + '/indices';
     const response = await fetch(url);
     let data = await response.json();
+    console.log(data);
 
     for (let prop in data) {
       data[prop].yearRange = data[prop]['52 Week Range'];
