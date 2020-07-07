@@ -1,6 +1,5 @@
 const express = require('express');
 const fetch = require('node-fetch');
-const stocksModel = require('./stocks-model');
 const router = express.Router();
 const { IEX_API_KEY, BASE_URL, FLASK_BASE_URL } = require('../../constants');
 
