@@ -49,7 +49,6 @@ router.get('/market/indices', async (req, res) => {
     const url = FLASK_BASE_URL + '/indices';
     const response = await fetch(url);
     let data = await response.json();
-    console.log(data);
 
     for (let prop in data) {
       data[prop].yearRange = data[prop]['52 Week Range'];
