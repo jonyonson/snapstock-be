@@ -17,7 +17,6 @@ router.get('/top-headlines', async (req, res) => {
     'Nytimes.com',
     'The Washington Post',
     'Investopedia.com',
-    // 'TechCrunch',
     'Fool.com',
     'CNN',
   ];
@@ -40,7 +39,8 @@ router.get('/top-headlines', async (req, res) => {
     while (articles.length < 6) {
       if (
         !articles.includes(data.articles[i]) &&
-        !blacklist.includes(data.articles[i].source.name)
+        !blacklist.includes(data.articles[i].source.name) &&
+        !data.articles[i].source.name.includes('-')
       ) {
         articles.push(data.articles[i]);
       }
