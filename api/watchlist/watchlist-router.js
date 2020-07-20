@@ -25,7 +25,7 @@ router.get('/', restricted(), async (req, res) => {
     const symbols = watchlist.map((stock) => stock.symbol).join(',');
     const url = `${BASE_URL}/market/batch?symbols=${symbols}&types=quote&token=${IEX_API_KEY}`;
     const response = await fetch(url);
-    let data = await response.json();
+    const data = await response.json();
 
     // add the quote for each stock
     watchlist.forEach((stock) => {
