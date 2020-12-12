@@ -11,8 +11,21 @@ const newsRouter = require('./api/news/news-router');
 const server = express();
 const port = process.env.PORT || 5000;
 
+const whitelist = ['https://snapstockapp.com', 'http://localhost:3000'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // checking for `!origin` allows requests from REST tools
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+server.use(cors(corsOptions));
 server.use(helmet());
-server.use(cors());
 server.use(express.json());
 
 server.use('/auth', authRouter);
