@@ -8,7 +8,7 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jonathan Taylor <jonathan.taylor.dev@gmail.com> (https://jonathantaylor.io",
+  "author": "Jonathan Taylor <jonathan.taylor.dev@gmail.com> (https://jonathantaylor.io)",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
