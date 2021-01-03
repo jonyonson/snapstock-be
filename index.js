@@ -6,6 +6,7 @@ const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const stocksRouter = require('./api/stocks/stocks-router');
 const watchlistRouter = require('./api/watchlist/watchlist-router');
+const stocklistRouter = require('./api/stocklist/stocklist-router');
 const newsRouter = require('./api/news/news-router');
 
 const server = express();
@@ -32,6 +33,8 @@ server.use('/auth', authRouter);
 server.use('/users', usersRouter);
 server.use('/api/stocks', stocksRouter);
 server.use('/api/watchlist', watchlistRouter);
+// server.use('/api/stocklist', stocklistRouter);
+server.use('/api/stocklist', stocklistRouter);
 server.use('/api/news', newsRouter);
 
 // sanity check
