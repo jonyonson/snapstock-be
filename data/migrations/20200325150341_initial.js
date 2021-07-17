@@ -1,9 +1,11 @@
 exports.up = async (knex) => {
   await knex.schema.createTable('users', (t) => {
     t.increments();
+    t.string('uuid', 128).notNullable().unique();
     t.string('email', 128).notNullable().unique();
-    t.string('password', 128).notNullable();
     t.boolean('email_verified').defaultTo(false);
+    t.string('display_name', 128);
+    t.string('photo_url', 128);
     t.timestamp('created_at').defaultTo(knex.fn.now());
     t.timestamp('updated_at').defaultTo(knex.fn.now());
   });
