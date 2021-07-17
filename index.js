@@ -12,7 +12,12 @@ const newsRouter = require('./api/news/news-router');
 const server = express();
 const port = process.env.PORT || 5000;
 
-const whitelist = ['https://snapstockapp.com', 'http://localhost:3000'];
+const whitelist = [
+  'https://snapstockapp.com',
+  'http://localhost:3000',
+  'http://localhost:6006',
+  'http://10.0.0.39:6006',
+];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -33,7 +38,6 @@ server.use('/auth', authRouter);
 server.use('/users', usersRouter);
 server.use('/api/stocks', stocksRouter);
 server.use('/api/watchlist', watchlistRouter);
-// server.use('/api/stocklist', stocklistRouter);
 server.use('/api/stocklist', stocklistRouter);
 server.use('/api/news', newsRouter);
 
