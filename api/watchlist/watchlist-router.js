@@ -1,13 +1,12 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const watchlistModel = require('./watchlist-model');
-const restricted = require('../../middleware/restricted');
 const router = express.Router();
 const { IEX_API_KEY, BASE_URL } = require('../../constants');
 
-router.post('/', restricted(), async (req, res) => {
-  const { symbol, company_name } = req.body;
-  const user_id = req.userId;
+router.post('/', async (req, res) => {
+  const { symbol, company_name, uuid } = req.body;
+  const user_id = uuid;
   try {
     const saved = await watchlistModel.add({ symbol, user_id, company_name });
     res.status(200).json(saved[0]);
@@ -16,10 +15,10 @@ router.post('/', restricted(), async (req, res) => {
   }
 });
 
-router.get('/', restricted(), async (req, res) => {
-  const userId = req.userId;
+router.get('/', async (req, res) => {
+  const uuid = req.query.uuid;
   try {
-    const watchlist = await watchlistModel.findByUserId(userId);
+    const watchlist = await watchlistModel.findByUserId(uuid);
 
     // Get a quote for each security in our watchlist
     const symbols = watchlist.map((stock) => stock.symbol).join(',');
@@ -45,10 +44,10 @@ router.get('/', restricted(), async (req, res) => {
   }
 });
 
-router.delete('/:id', restricted(), async (req, res) => {
+router.delete('/:id', async (req, res) => {
+  const id = req.params.id;
+  const user_id = req.query.uuid;
   try {
-    const id = req.params.id;
-    const user_id = req.userId;
     const removed = await watchlistModel.removeStock(user_id, id);
     res.status(200).json({ message: 'Stock removed from watchlist' });
   } catch (err) {

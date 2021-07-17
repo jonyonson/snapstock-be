@@ -22,9 +22,9 @@ exports.up = async (knex) => {
 
   await knex.schema.createTable('watchlist', (t) => {
     t.increments();
-    t.integer('user_id')
+    t.string('user_id')
       .notNullable()
-      .references('id')
+      .references('uuid')
       .inTable('users')
       .onDelete('CASCADE')
       .onUpdate('CASCADE');
