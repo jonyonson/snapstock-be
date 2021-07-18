@@ -1,41 +1,33 @@
 exports.up = async (knex) => {
-  await knex.schema.createTable('users', (table) => {
-    table.increments();
-    table.string('email', 128).notNullable().unique();
-    table.string('password', 128).notNullable();
-    table.boolean('email_verified').defaultTo(false);
-    table.timestamp('created_at').defaultTo(knex.fn.now());
+  await knex.schema.createTable('users', (t) => {
+    t.increments();
+    t.string('email', 128).notNullable().unique();
+    t.string('password', 128).notNullable();
+    t.boolean('email_verified').defaultTo(false);
+    t.timestamp('created_at').defaultTo(knex.fn.now());
+    t.timestamp('updated_at').defaultTo(knex.fn.now());
   });
 
-  await knex.schema.createTable('stocks', (table) => {
-    table.increments();
-    table.string('symbol').notNullable().unique();
-    table.string('company_name').notNullable();
-    table.string('primary_exchange');
-    table.string('image_url');
-    table.string('company_description');
-    table.string('company_website');
+  await knex.schema.createTable('stocks', (t) => {
+    t.increments();
+    t.string('symbol').notNullable().unique();
+    t.string('company_name').notNullable();
+    t.string('primary_exchange');
+    t.string('image_url');
+    t.string('company_description');
+    t.string('company_website');
   });
 
-  await knex.schema.createTable('watchlist', (table) => {
-    table.increments();
-    table
-      .integer('user_id')
+  await knex.schema.createTable('watchlist', (t) => {
+    t.increments();
+    t.integer('user_id')
       .notNullable()
       .references('id')
       .inTable('users')
       .onDelete('CASCADE')
       .onUpdate('CASCADE');
-    // table
-    //   .integer('stock_id')
-    //   .notNullable()
-    //   .references('id')
-    //   .inTable('stocks')
-    //   .onDelete('CASCADE')
-    //   .onUpdate('CASCADE');
-    // table.primary(['user_id', 'stock_id']);
-    table.string('symbol').notNullable().unique();
-    table.string('company_name').notNullable();
+    t.string('symbol').notNullable().unique();
+    t.string('company_name').notNullable();
   });
 };
 
