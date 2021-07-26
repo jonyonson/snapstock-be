@@ -14,9 +14,11 @@ const port = process.env.PORT || 5000;
 
 const whitelist = [
   'https://snapstockapp.com',
+  'https://snapstock.vercel.app/',
   'http://localhost:3000',
   'http://localhost:6006',
   'http://10.0.0.39:6006',
+  'http://10.0.0.39:3000',
 ];
 
 const corsOptions = {

@@ -28,7 +28,7 @@ exports.up = async (knex) => {
       .inTable('users')
       .onDelete('CASCADE')
       .onUpdate('CASCADE');
-    t.string('symbol').notNullable().unique();
+    t.string('symbol').notNullable();
     t.string('company_name').notNullable();
   });
 };
