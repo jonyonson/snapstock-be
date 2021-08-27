@@ -20,7 +20,7 @@ const whitelist = [
   'http://10.0.0.39:6006',
   'http://10.0.0.39:3000',
 
-  'http://localhost:8001',
+  'http://localhost:8100',
 ];
 
 const corsOptions = {
