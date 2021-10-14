@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 
     // Get a quote for each security in our watchlist
     const symbols = watchlist.map((stock) => stock.symbol).join(',');
-    const url = `${BASE_URL}/market/batch?symbols=${symbols}&types=quote&token=${IEX_API_KEY}`;
+    const url = `${BASE_URL}/stock/market/batch?symbols=${symbols}&types=quote&token=${IEX_API_KEY}`;
     const response = await fetch(url);
     const data = await response.json();
 
