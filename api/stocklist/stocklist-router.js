@@ -7,7 +7,7 @@ const { IEX_API_KEY, BASE_URL } = require('../../constants');
 router.get('/:symbols', restricted(), async (req, res) => {
   try {
     const symbols = req.params.symbols.split(',');
-    const url = `${BASE_URL}/market/batch?symbols=${symbols}&types=quote&token=${IEX_API_KEY}`;
+    const url = `${BASE_URL}/stock/market/batch?symbols=${symbols}&types=quote&token=${IEX_API_KEY}`;
     console.log(url);
     const response = await fetch(url);
     const data = await response.json();

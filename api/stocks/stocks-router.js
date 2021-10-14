@@ -6,7 +6,7 @@ const { IEX_API_KEY, BASE_URL, FLASK_BASE_URL } = require('../../constants');
 router.get('/:symbol', async (req, res) => {
   try {
     const symbol = req.params.symbol.toUpperCase();
-    const endpoint = `${BASE_URL}/${symbol}/batch?types=quote,company,intraday-prices,stats&token=${IEX_API_KEY}`;
+    const endpoint = `${BASE_URL}/stock/${symbol}/batch?types=quote,company,intraday-prices,stats&token=${IEX_API_KEY}`;
     const response = await fetch(endpoint);
     const data = await response.json();
     res.status(200).json(data);
@@ -19,7 +19,7 @@ router.get('/:symbol/chart/:range', async (req, res) => {
   try {
     const symbol = req.params.symbol.toUpperCase();
     const range = req.params.range;
-    const url = `${BASE_URL}/${symbol}/chart/${range}?token=${IEX_API_KEY}`;
+    const url = `${BASE_URL}/stock/${symbol}/chart/${range}?token=${IEX_API_KEY}`;
     const response = await fetch(url);
     const data = await response.json();
     res.status(200).json(data);
@@ -33,7 +33,7 @@ router.get('/:symbol/chart/:range', async (req, res) => {
  * */
 router.get('/market/list/:type', async (req, res) => {
   const listType = req.params.type;
-  const url = `${BASE_URL}/market/list/${listType}?token=${IEX_API_KEY}`;
+  const url = `${BASE_URL}/stock/market/list/${listType}?token=${IEX_API_KEY}`;
 
   try {
     const response = await fetch(url);
@@ -71,6 +71,19 @@ router.get('/market/indices', async (req, res) => {
       delete data[prop]['Volume'];
     }
 
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ message: 'Error getting data' });
+  }
+});
+
+router.get('/search/:value', async (req, res) => {
+  const value = req.params.value;
+  const url = `${BASE_URL}/search/${value}?token=${IEX_API_KEY}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ message: 'Error getting data' });
