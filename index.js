@@ -15,6 +15,7 @@ const port = process.env.PORT || 5000;
 const whitelist = [
   'https://snapstockapp.com',
   'https://snapstock.vercel.app/',
+  'https://snapstock-mulligan.vercel.app/',
   'http://localhost:3000',
   'http://localhost:3001',
   'http://localhost:6006',
