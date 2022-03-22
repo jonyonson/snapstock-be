@@ -13,7 +13,8 @@ if (sandbox) {
 if (process.env.NODE_ENV === 'development') {
   FLASK_BASE_URL = 'http://localhost:4000';
 } else {
-  FLASK_BASE_URL = 'https://snapstock-flask.herokuapp.com';
+  // FLASK_BASE_URL = 'https://snapstock-flask.herokuapp.com';
+  FLASK_BASE_URL = 'https://snapstock-flask.onrender.com';
 }
 
 module.exports = { IEX_API_KEY, BASE_URL, FLASK_BASE_URL };

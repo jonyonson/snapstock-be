@@ -12,11 +12,22 @@ const newsRouter = require('./api/news/news-router');
 const server = express();
 const port = process.env.PORT || 5000;
 
-const whitelist = [
+let whitelist = [
   'https://snapstockapp.com',
   'https://snapstock.vercel.app',
   'https://snapstock-mulligan.vercel.app',
 ];
+
+if (process.env.NODE_ENV === 'development') {
+  whitelist = whitelist.concat([
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:6006',
+    'http://10.0.0.39:6006',
+    'http://10.0.0.39:3000',
+    'http://localhost:8001',
+  ]);
+}
 
 const corsOptions = {
   origin: function (origin, callback) {
