@@ -6,12 +6,12 @@
 #### Front-end source:
 [github.com/jonyonson/snapstock-fe](https://github.com/jonyonson/snapstock-fe)
 
+[github.com/jonyonson/snapstock-next](https://github.com/jonyonson/snapstock-next)
+
 #### Backend source:
 [github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
 
 [github.com/jonyonson/snapstock-flask](https://github.com/jonyonson/snapstock-flask)
-
-[github.com/jonyonson/snapstock-next](https://github.com/jonyonson/snapstock-next)
 
 <hr>
 
