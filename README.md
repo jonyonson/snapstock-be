@@ -6,8 +6,6 @@
 #### Front-end source:
 [github.com/jonyonson/snapstock-fe](https://github.com/jonyonson/snapstock-fe)
 
-[github.com/jonyonson/snapstock-next](https://github.com/jonyonson/snapstock-next)
-
 #### Backend source:
 [github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
 
