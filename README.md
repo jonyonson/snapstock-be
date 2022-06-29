@@ -1,15 +1,17 @@
 ![Snapstock Logo](https://raw.githubusercontent.com/jonyonson/snapstock-fe/master/src/assets/snapstock_logo.svg)
 
-#### Deployed site: 
+#### Deployed site:
 [snapstockapp.com](https://snapstockapp.com)
 
 #### Front-end source:
 [github.com/jonyonson/snapstock-fe](https://github.com/jonyonson/snapstock-fe)
 
-#### Backend source: 
+#### Backend source:
 [github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
 
 [github.com/jonyonson/snapstock-flask](https://github.com/jonyonson/snapstock-flask)
+
+[github.com/jonyonson/snapstock-next](https://github.com/jonyonson/snapstock-next)
 
 <hr>
 
