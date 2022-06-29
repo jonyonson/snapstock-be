@@ -16,6 +16,7 @@ let whitelist = [
   'https://snapstockapp.com',
   'https://snapstock.vercel.app',
   'https://snapstock-mulligan.vercel.app',
+  'https://7lvxde.csb.app',
 ];
 
 if (process.env.NODE_ENV === 'development') {
@@ -40,7 +41,7 @@ const corsOptions = {
   },
 };
 
-// server.use(cors(corsOptions));
+server.use(cors(corsOptions));
 server.use(helmet());
 server.use(express.json());
 
