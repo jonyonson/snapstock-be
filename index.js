@@ -16,8 +16,7 @@ let whitelist = [
   'https://snapstockapp.com',
   'https://snapstock.vercel.app',
   'https://snapstock-mulligan.vercel.app',
-  'https://snapstock-next.vercel.app',
-  'http://127.0.0.1:3001'
+  'https://snapstock-next.vercel.app'
 ];
 
 if (process.env.NODE_ENV === 'development') {
