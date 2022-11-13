@@ -1,4 +1,4 @@
-import jwt, { Secret } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import { FixMeLater } from '../types/index';
 
@@ -13,7 +13,7 @@ export const generateToken = (user: FixMeLater) => {
       id: user.id,
       email: user.email,
     },
-    process.env.JWT_SECRET as Secret,
+    process.env.JWT_SECRET,
   );
   return token;
 };
