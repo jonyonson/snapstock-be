@@ -6,7 +6,9 @@ declare global {
       NODE_ENV: 'development' | 'production';
       JWT_SECRET: Secret;
       DATABASE_URL: string;
-      // PORT?: string;
+      IEX_CLOUD_API_KEY: string;
+      IEX_CLOUD_BASE_URL: string;
+      IEX_CLOUD_SECRET: string;
     }
   }
 }

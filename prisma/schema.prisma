@@ -11,12 +11,26 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(cuid())
-  firebaseId    String?  @unique
-  createdAt     DateTime @default(now())
-  email         String   @unique
-  name          String?
-  image         String?
-  emailVerified Boolean  @default(false)
-  // password      String
+  id             String   @id @default(cuid())
+  authProviderId String?  @unique
+  createdAt      DateTime @default(now())
+  email          String   @unique
+  name           String?
+  image          String?
+  emailVerified  Boolean  @default(false)
+  stocks         Stock[]
+}
+
+enum LIST_TYPE {
+  WATCHLIST
+  PORTFOLIO
+}
+
+model Stock {
+  id     String    @id @default(cuid())
+  userId String
+  symbol String
+  name   String?
+  type   LIST_TYPE @default(WATCHLIST)
+  user   User      @relation(fields: [userId], references: [authProviderId])
 }

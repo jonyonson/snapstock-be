@@ -13,7 +13,7 @@ router.post('/register', async (req, res, next) => {
         emailVerified: req.body.emailVerified,
         image: req.body.image || null,
         name: req.body.name || null,
-        firebaseId: req.body.firebaseId,
+        authProviderId: req.body.authProviderId,
         // password: hash,
       },
     });
