@@ -32,5 +32,5 @@ model Stock {
   symbol String
   name   String?
   type   LIST_TYPE @default(WATCHLIST)
-  user   User      @relation(fields: [userId], references: [authProviderId])
+  user   User      @relation(fields: [userId], references: [authProviderId], onDelete: Cascade)
 }

@@ -68,4 +68,16 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.delete('/:id', async (req, res, next) => {
+  const id = req.params.id;
+  // const uuid = req.query.uuid;
+
+  try {
+    const stock = await prisma.stock.delete({ where: { id } });
+    res.json(stock);
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;
