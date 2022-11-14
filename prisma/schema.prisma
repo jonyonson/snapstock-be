@@ -19,6 +19,8 @@ model User {
   image          String?
   emailVerified  Boolean  @default(false)
   stocks         Stock[]
+
+  @@map("users")
 }
 
 enum LIST_TYPE {
@@ -33,4 +35,6 @@ model Stock {
   name   String?
   type   LIST_TYPE @default(WATCHLIST)
   user   User      @relation(fields: [userId], references: [authProviderId], onDelete: Cascade)
+
+  @@map("stocks")
 }
