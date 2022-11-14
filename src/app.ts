@@ -13,7 +13,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.get('/', (_, res) => res.json({ message: 'Hello World' }));
+app.get('/', (_, res) =>
+  res.json({ message: 'Hello World', environment: process.env.NODE_ENV })
+);
 app.use('/auth', authRouter);
 app.use('/api/watchlist', watchlistRouter);
 
