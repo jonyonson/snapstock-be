@@ -1,5 +1,5 @@
 import express from 'express';
-import prisma from '../db';
+import prisma from '../utils/db';
 import { generateToken } from '../modules/auth';
 
 const router = express.Router();

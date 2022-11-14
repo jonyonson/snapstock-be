@@ -1,7 +1,7 @@
 import express from 'express';
 import fetch from 'node-fetch';
-import { IEX_CLOUD } from '../constants';
-import prisma from '../db';
+import prisma from '../utils/db';
+import { IEX_CLOUD } from '../utils/constants';
 import { FixMeLater } from '../types/index';
 
 const router = express.Router();
