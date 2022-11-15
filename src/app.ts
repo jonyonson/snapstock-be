@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import authRouter from './routes/auth.router';
 import watchlistRouter from './routes/watchlist.router';
+import stocksRouter from './routes/stocks.router';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.get('/', (_, res) =>
 );
 app.use('/auth', authRouter);
 app.use('/api/watchlist', watchlistRouter);
+app.use('/api/stocks', stocksRouter);
 
 // Error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
