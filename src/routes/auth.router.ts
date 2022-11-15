@@ -1,20 +1,20 @@
 import express from 'express';
 import prisma from '../utils/db';
-import { generateToken } from '../modules/auth';
+import { comparePasswords, generateToken, hashPassword } from '../modules/auth';
 
 const router = express.Router();
 
 router.post('/register', async (req, res, next) => {
   try {
-    // const hash = await hashPassword(req.body.password);
+    const hash = await hashPassword(req.body.password);
     const user = await prisma.user.create({
       data: {
         email: req.body.email,
         emailVerified: req.body.emailVerified,
-        image: req.body.image || null,
-        name: req.body.name || null,
+        image: req.body.image,
+        name: req.body.name,
         authProviderId: req.body.authProviderId,
-        // password: hash,
+        password: hash,
       },
     });
 
@@ -39,11 +39,11 @@ router.post('/login', async (req, res, next) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // const isValid = await comparePasswords(req.body.password, user.password);
+    const isValid = await comparePasswords(req.body.password, user.password);
 
-    // if (!isValid) {
-    //   return res.status(401).json({ message: 'Invalid credentials' });
-    // }
+    if (!isValid) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
 
     const token = generateToken(user);
     const { id, email } = user;
