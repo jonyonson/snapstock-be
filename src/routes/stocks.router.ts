@@ -4,9 +4,21 @@ import fetch from 'node-fetch';
 
 const router = express.Router();
 
-/**
- * 'mostactive' | 'gainers' | 'losers' |'iexvolume' | 'iexpercent'
- * */
+// GET /api/search/:query
+router.get('/search/:query', async (req, res, next) => {
+  const { query } = req.params;
+  const url = `${IEX_CLOUD.BASE_URL}/search/${query}?token=${IEX_CLOUD.API_KEY}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/stocks/market/list/:type
 router.get('/market/list/:type', async (req, res, next) => {
   const { type } = req.params;
 
@@ -35,6 +47,7 @@ router.get('/market/list/:type', async (req, res, next) => {
   }
 });
 
+// GET /api/stocks/market/indices
 router.get('/market/indices', async (_, res, next) => {
   try {
     const response = await fetch(`${MARKET_INDEX_URL}/api/v2/indices`);
