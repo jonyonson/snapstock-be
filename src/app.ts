@@ -14,9 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.get('/', (_, res) =>
-  res.json({ message: 'Hello World', environment: process.env.NODE_ENV })
-);
+app.get('/', (_, res) => res.json({ status: 'ok' }));
 app.use('/auth', authRouter);
 app.use('/api/watchlist', watchlistRouter);
 app.use('/api/stocks', stocksRouter);
@@ -24,7 +22,7 @@ app.use('/api/stocks', stocksRouter);
 // Error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err.message || 'Something went wrong.' });
   }
 });
 
