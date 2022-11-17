@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  authProviderId String   @unique
+  createdAt      DateTime @default(now())
+  email          String   @unique
+  password       String
+  name           String?
+  image          String?
+  emailVerified  Boolean  @default(false)
+  stocks         Stock[]
+
+  @@map("users")
+}
+
+enum LIST_TYPE {
+  WATCHLIST
+  PORTFOLIO
+}
+
+model Stock {
+  id     String    @id @default(cuid())
+  userId String
+  symbol String
+  name   String?
+  type   LIST_TYPE @default(WATCHLIST)
+  user   User      @relation(fields: [userId], references: [authProviderId], onDelete: Cascade)
+
+  @@map("stocks")
+}
