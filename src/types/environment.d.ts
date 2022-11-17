@@ -8,7 +8,7 @@ declare global {
       DATABASE_URL: string;
       IEX_CLOUD_API_KEY: string;
       IEX_CLOUD_BASE_URL: string;
-      IEX_CLOUD_SECRET: string;
+      NEWS_API_KEY: string;
     }
   }
 }
