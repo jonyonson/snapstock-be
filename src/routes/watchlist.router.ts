@@ -32,6 +32,10 @@ router.post('/', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
   const uuid = req.query.uuid as string;
 
+  if (!uuid) {
+    return res.status(400).json({ message: 'Missing uuid' });
+  }
+
   try {
     const watchlist = await prisma.stock.findMany({
       where: {
