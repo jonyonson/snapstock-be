@@ -37,5 +37,6 @@ model Stock {
   type   LIST_TYPE @default(WATCHLIST)
   user   User      @relation(fields: [userId], references: [authProviderId], onDelete: Cascade)
 
+  @@unique([symbol, userId])
   @@map("stocks")
 }

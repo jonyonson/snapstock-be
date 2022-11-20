@@ -9,7 +9,7 @@ type Config = {
   port: number;
   secrets: {
     jwt: string;
-    dbUri: string;
+    dbUrl: string;
   };
 };
 
@@ -30,5 +30,5 @@ export default merge(
       dbUrl: process.env.DATABASE_URL,
     },
   },
-  envConfig
+  envConfig,
 );
