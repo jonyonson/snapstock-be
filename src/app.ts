@@ -5,6 +5,7 @@ import authRouter from './routes/auth.router';
 import watchlistRouter from './routes/watchlist.router';
 import stocksRouter from './routes/stocks.router';
 import newsRouter from './routes/news.router';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 
 const app = express();
 
@@ -23,8 +24,18 @@ app.use('/api/news', newsRouter);
 
 // Error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  let status = 500;
+  let message = 'Internal Server Error';
+
+  if (err instanceof PrismaClientKnownRequestError) {
+    if (err.code === 'P2002') {
+      status = 409;
+      message = 'Unique constraint failed';
+    }
+  }
+
   if (err) {
-    res.status(500).json({ message: err.message || 'Something went wrong.' });
+    res.status(status).json({ message });
   }
 });
 
