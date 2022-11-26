@@ -1,7 +1,6 @@
 import express from 'express';
 import { IEX_CLOUD, MARKET_INDEX_URL } from '../utils/constants';
 import fetch from 'node-fetch';
-import { nextTick } from 'process';
 
 const router = express.Router();
 
