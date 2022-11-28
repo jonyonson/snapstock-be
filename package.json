@@ -9,10 +9,10 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
-    "lint:check": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "format:check": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "lint:check": "eslint src",
+    "lint:fix": "eslint --fix src",
+    "format:check": "prettier --check src",
+    "format:fix": "prettier --write src"
   },
   "keywords": [],
   "author": "Jonathan Taylor",

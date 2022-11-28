@@ -1,7 +1,6 @@
 import express from 'express';
 import { IEX_CLOUD, MARKET_INDEX_URL } from '../utils/constants';
 import fetch from 'node-fetch';
-import { nextTick } from 'process';
 
 const router = express.Router();
 
@@ -52,7 +51,7 @@ router.get('/market/list/:type', async (req, res, next) => {
 router.get('/market/indices', async (_, res, next) => {
   try {
     const response = await fetch(`${MARKET_INDEX_URL}/api/v2/indices`);
-    let data = await response.json();
+    const data = await response.json();
 
     res.status(200).json(data);
   } catch (err) {
