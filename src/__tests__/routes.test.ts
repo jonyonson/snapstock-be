@@ -3,7 +3,7 @@ import supertest from 'supertest';
 
 describe('GET /', () => {
   it('should return 200 OK', async () => {
-    const response = await supertest(app).get('/');
-    expect(response.status).toBe(200);
+    const { status } = await supertest(app).get('/');
+    expect(status).toBe(200);
   });
 });
