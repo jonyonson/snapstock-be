@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import authRouter from './routes/auth.router';
@@ -23,7 +23,7 @@ app.use('/api/stocks', stocksRouter);
 app.use('/api/news', newsRouter);
 
 // Error handler
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response) => {
   let status = 500;
   let message = 'Internal Server Error';
 

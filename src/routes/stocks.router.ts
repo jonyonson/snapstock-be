@@ -51,7 +51,7 @@ router.get('/market/list/:type', async (req, res, next) => {
 router.get('/market/indices', async (_, res, next) => {
   try {
     const response = await fetch(`${MARKET_INDEX_URL}/api/v2/indices`);
-    let data = await response.json();
+    const data = await response.json();
 
     res.status(200).json(data);
   } catch (err) {

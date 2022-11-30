@@ -30,5 +30,5 @@ export default merge(
       dbUrl: process.env.DATABASE_URL,
     },
   },
-  envConfig,
+  envConfig
 );
